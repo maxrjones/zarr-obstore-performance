@@ -56,7 +56,7 @@ omit = [
 [tool.hatch.envs.obstore]
 python = "3.13"
 dependencies = [
-    'zarr[optional,remote,test] @ git+https://github.com/maxrjones/zarr-python@264eac628eb4aaf24d9a9f233e3b0b96429ee022',
+    'zarr[optional,remote,test] @ git+https://github.com/maxrjones/zarr-python@1b9f9f2d52d6ebceebde87ecf97810826219b88c',
 ]
 
 [tool.hatch.envs.analysis]
