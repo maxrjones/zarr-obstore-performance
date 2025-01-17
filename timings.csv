@@ -1,0 +1,3 @@
+date,file,total execution time, average time\n
+2025-01-17 21:49:27.350951,/home/jovyan/Code/developmentseed/zarr-obstore-performance/zarr-fsspec-s3store.py,351.69575212899963,7.033915042579992
+2025-01-17 21:53:12.948849,/home/jovyan/Code/developmentseed/zarr-obstore-performance/zarr-obstore-s3store.py,225.18456072499976,4.503691214499995
