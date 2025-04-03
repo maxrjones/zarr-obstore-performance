@@ -1,3 +1,3 @@
 date,file,total execution time, average time
-2025-02-26 00:54:30.073653,/home/jovyan/Code/developmentseed/zarr-obstore-performance/zarr-fsspec-s3store.py,373.8050834019999,7.476101668039998
-2025-02-26 00:58:13.778148,/home/jovyan/Code/developmentseed/zarr-obstore-performance/zarr-obstore-s3store.py,223.32977394,4.4665954787999995
+2025-04-03 15:04:10.193214,/home/jovyan/Code/developmentseed/zarr-obstore-performance/zarr-fsspec-s3store.py,373.4910262850001,7.469820525700002
+2025-04-03 15:08:02.178947,/home/jovyan/Code/developmentseed/zarr-obstore-performance/zarr-obstore-s3store.py,231.59544318999997,4.6319088638
