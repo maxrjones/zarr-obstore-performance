@@ -56,7 +56,7 @@ plt.legend(
     fontsize=10,
     loc="upper right",
 )
-plt.title("Loading a 10 GB array using Zarr Python 3.0", fontsize=14)
+plt.title("Loading a 24 GB array using Zarr Python 3.0", fontsize=14)
 
 # Show the concurrency values on x-axis
 plt.xticks(data["concurrency"].unique())
