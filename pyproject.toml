@@ -1,0 +1,29 @@
+[project]
+name = "benchmark"
+version = "0.1.0"
+description = "Simple tests on using Zarr-Python with obstore"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+ "ipython",
+ "zarr",
+ "xarray",
+ "rich>=13.9.4",
+ "obstore",
+ "fsspec",
+ "s3fs",
+ "gcsfs"
+]
+
+[tool.uv.sources]
+zarr = { git = "https://github.com/zarr-developers/zarr-python" }
+xarray = { git = "https://github.com/pydata/xarray" }
+obstore = { git = "https://github.com/developmentseed/obstore", subdirectory="obstore", rev = "848e7c99972f9e13c185dd1f84b1194f5621015f" }
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.7",
+]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "C", "B", "UP", "N", "S", "ERA", "PD", "EXE", "PGH"]
