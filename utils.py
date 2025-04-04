@@ -1,6 +1,6 @@
 from datetime import datetime
 
-REP = 50
+REP = 8
 
 
 def store_results(file, exec_time, ave_time):
