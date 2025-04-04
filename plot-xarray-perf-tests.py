@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Read the data
-data = pd.read_csv("timings.csv")
-
+data = pd.read_csv("xarray-timings.csv")
+data = data[data["concurrency"] > 1]
 # Set up the plot
 plt.figure(figsize=(7, 5))
 
@@ -20,7 +20,6 @@ for lib in ["fsspec", "obstore"]:
         concurrency_data = lib_data[lib_data["concurrency"] == concurrency]
 
         x_values = [concurrency] * len(concurrency_data)
-
         plt.scatter(
             x_values,
             concurrency_data["execution_time"],
@@ -32,7 +31,16 @@ for lib in ["fsspec", "obstore"]:
             if lib_data["concurrency"].eq(concurrency).any()
             else None,
         )
-
+        avg_time = concurrency_data["execution_time"].mean()
+        x = 6 + concurrency
+        plt.text(
+            x,  # Offset from the x-position
+            avg_time,  # At the average height
+            f"{avg_time:.2f}s",
+            color=colors[lib],
+            fontweight="bold",
+            verticalalignment="center",
+        )
 # Set the scale for x-axis to log scale since concurrency values span orders of magnitude
 plt.grid(True, which="both", ls="-", alpha=0.2)
 
@@ -61,8 +69,10 @@ plt.title("Loading a 24 GB array using Zarr Python 3.0", fontsize=14)
 # Show the concurrency values on x-axis
 plt.xticks(data["concurrency"].unique())
 
+# Set axis limits
+plt.xlim(8, 240)
 # Ensure y-axis starts at 0 for better visual comparison
 plt.ylim(bottom=0)
 
 # Save figure
-plt.savefig("zarr_performance_comparison.png", dpi=300)
+plt.savefig("xarray_performance_comparison.png", dpi=300)
