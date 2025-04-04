@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "date,file,library,execution_time,concurrency" > timings.csv
+echo "date,file,library,execution_time,concurrency" > xarray-timings.csv
 
 CONCURRENCY_VALUES=(10 100 200)
 REPETITIONS=8
@@ -10,8 +10,8 @@ do
     for (( rep=1; rep<=$REPETITIONS; rep++ ))
     do
     echo "Running benchmark with concurrency = $concurrency, repetition = $rep"
-    python zarr-fsspec-s3store.py --concurrency $concurrency
-    python zarr-obstore-s3store.py --concurrency $concurrency
+    python xarray-fsspec-gcs.py --concurrency $concurrency
+    python xarray-obstore-gcs.py --concurrency $concurrency
     echo "----------------------------------------"
     done
 done
