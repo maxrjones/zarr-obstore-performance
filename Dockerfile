@@ -2,4 +2,4 @@
 FROM quay.io/developmentseed/veda-optimized-data-delivery-image:2025.04.03
 
 # Install Zarr-Python version
-RUN python -m pip install --no-cache-dir "zarr[optional,remote,test] @ git+https://github.com/maxrjones/zarr-python@d5993777a774748810567d309259ffae06b998fb"
+RUN python -m pip install --no-cache-dir "zarr[optional,upstream,test] @ git+https://github.com/maxrjones/zarr-python@98cff171c464d67b555b0384555d3fac37ac1724"
