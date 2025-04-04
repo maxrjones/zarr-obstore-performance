@@ -7,6 +7,7 @@ import zarr
 import fsspec
 from zarr.storage import FsspecStore
 
+zarr.config.set({'async.concurrency': 128})
 bucket = "nasa-veda-scratch"
 path = "zarr-obstore-test/max/zarr-v3/test-era5-v3-919"
 
@@ -15,6 +16,7 @@ fs, path = fsspec.url_to_fs(f"s3://{bucket}/{path}", anon=False, asynchronous=Tr
 store = FsspecStore(fs, read_only=True, path=path)
 """
 load_arr = """
+zarr.config.set({'async.concurrency': 128})
 arr = zarr.open_array(store, zarr_version=3, path="PV")
 arr[:]
 """
