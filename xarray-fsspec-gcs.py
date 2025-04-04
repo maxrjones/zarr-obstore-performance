@@ -1,31 +1,27 @@
 import timeit
 import argparse
-from utils import store_results
+from utils import store_xarray_results
 
 
 def run_benchmarks(concurrency):
     setup = f"""
 import zarr
-import fsspec
-from zarr.storage import FsspecStore
+import xarray as xr
 
 zarr.config.set({{'async.concurrency': {concurrency}}})
-bucket = "nasa-veda-scratch"
-path = "zarr-obstore-test/max/zarr-v3/test-era5-v3-919"
-
-# Open store with fsspec
-fs, path = fsspec.url_to_fs(f"s3://{{bucket}}/{{path}}", anon=False, asynchronous=True)
-store = FsspecStore(fs, read_only=True, path=path)
-
-arr = zarr.open_array(store, zarr_version=3, path="PV")
+uri = 'gs://gcp-public-data-arco-era5/ar/full_37-1h-0p25deg-chunk-1.zarr-v3'
 """
 
-    load_arr = """
-arr[:]
+    open_dataset = """
+dx = xr.open_dataset(
+	uri,
+	engine='zarr',
+	consolidated=False,
+	storage_options = {'token': 'anon'})
 """
 
-    exec_time = timeit.timeit(stmt=load_arr, setup=setup, number=1)
-    store_results(__file__, "fsspec", exec_time, concurrency)
+    exec_time = timeit.timeit(stmt=open_dataset, setup=setup, number=1)
+    store_xarray_results(__file__, "fsspec", exec_time, concurrency)
 
 
 if __name__ == "__main__":

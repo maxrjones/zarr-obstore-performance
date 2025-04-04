@@ -1,8 +1,11 @@
 from datetime import datetime
 
-REP = 8
 
-
-def store_results(file, exec_time, ave_time):
+def store_results(file, store, exec_time, concurrency):
     with open("timings.csv", "a") as f:
-        f.write(f"{datetime.now()},{file},{exec_time},{ave_time}\n")
+        f.write(f"{datetime.now()},{file},{store},{exec_time},{concurrency}\n")
+
+
+def store_xarray_results(file, store, exec_time, concurrency):
+    with open("xarray-timings.csv", "a") as f:
+        f.write(f"{datetime.now()},{file},{store},{exec_time},{concurrency}\n")
