@@ -12,7 +12,8 @@ dependencies = [
  "obstore",
  "fsspec",
  "s3fs",
- "gcsfs"
+ "gcsfs",
+ "matplotlib>=3.10.1",
 ]
 
 [tool.uv.sources]
@@ -22,6 +23,7 @@ obstore = { git = "https://github.com/developmentseed/obstore", subdirectory="ob
 
 [dependency-groups]
 dev = [
+    "ipykernel>=6.29.5",
     "ruff>=0.9.7",
 ]
 
