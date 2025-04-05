@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Read the data
-data = pd.read_csv("xarray-timings.csv")
-data = data[data["concurrency"] > 1]
+data = pd.read_csv("results/timings.csv")
+
 # Set up the plot
 plt.figure(figsize=(7, 5))
 
@@ -20,6 +20,7 @@ for lib in ["fsspec", "obstore"]:
         concurrency_data = lib_data[lib_data["concurrency"] == concurrency]
 
         x_values = [concurrency] * len(concurrency_data)
+
         plt.scatter(
             x_values,
             concurrency_data["execution_time"],
@@ -41,7 +42,7 @@ for lib in ["fsspec", "obstore"]:
             fontweight="bold",
             verticalalignment="center",
         )
-# Set the scale for x-axis to log scale since concurrency values span orders of magnitude
+
 plt.grid(True, which="both", ls="-", alpha=0.2)
 
 # Labels and title
@@ -64,15 +65,14 @@ plt.legend(
     fontsize=10,
     loc="upper right",
 )
-plt.title("Time required to open the ARCO ERA5 dataset in Xarray with Zarr Python 3.0", fontsize=14)
+plt.title("Loading a 24 GB array using Zarr Python 3.0", fontsize=14)
 
 # Show the concurrency values on x-axis
 plt.xticks(data["concurrency"].unique())
 
-# Set axis limits
-plt.xlim(8, 240)
 # Ensure y-axis starts at 0 for better visual comparison
 plt.ylim(bottom=0)
+plt.xlim(1, 240)
 
 # Save figure
-plt.savefig("xarray_performance_comparison.png", dpi=300)
+plt.savefig("zarr_load_performance_comparison.png", dpi=300)

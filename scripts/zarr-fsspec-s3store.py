@@ -1,21 +1,22 @@
-import timeit
 import argparse
+import timeit
+
 from utils import store_results
 
 
 def run_benchmarks(concurrency):
     setup = f"""
 import zarr
-from obstore.store import S3Store
-from zarr.storage import ObjectStore
+import fsspec
+from zarr.storage import FsspecStore
 
 zarr.config.set({{'async.concurrency': {concurrency}}})
 bucket = "nasa-veda-scratch"
 path = "zarr-obstore-test/max/zarr-v3/test-era5-v3-919"
 
-# Open store with obstore
-s3store = S3Store(bucket, prefix=path)
-store = ObjectStore(s3store, read_only=True)
+# Open store with fsspec
+fs, path = fsspec.url_to_fs(f"s3://{{bucket}}/{{path}}", anon=False, asynchronous=True)
+store = FsspecStore(fs, read_only=True, path=path)
 
 arr = zarr.open_array(store, zarr_version=3, path="PV")
 """
@@ -25,7 +26,7 @@ arr[:]
 """
 
     exec_time = timeit.timeit(stmt=load_arr, setup=setup, number=1)
-    store_results(__file__, "obstore", exec_time, concurrency=concurrency)
+    store_results(__file__, "fsspec", exec_time, concurrency)
 
 
 if __name__ == "__main__":
